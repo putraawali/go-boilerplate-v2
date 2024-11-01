@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -35,7 +35,7 @@ func NewMySQLConnection() (mySql *gorm.DB, err error) {
 		)
 	}
 
-	mySql, err = gorm.Open(postgres.Open(config), &gorm.Config{
+	mySql, err = gorm.Open(mysql.Open(config), &gorm.Config{
 		Logger: newLog,
 	})
 	if err != nil {

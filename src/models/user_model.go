@@ -15,7 +15,7 @@ type User struct {
 	Phone     string    `json:"phone"`
 	Password  string    `json:"password" gorm:"not null"`
 	CreatedAt time.Time `json:"created_at" gorm:"column:created_at"`
-	UpdatedAt time.Time `json:"updated_at" gorm:"column:updaated_at"`
+	UpdatedAt time.Time `json:"updated_at" gorm:"column:updated_at"`
 }
 
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {

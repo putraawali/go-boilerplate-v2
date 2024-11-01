@@ -24,8 +24,13 @@ type userRepository struct {
 }
 
 func NewUserRepository(di di.Container) UserRepository {
+	db := di.Get(constants.PG_DB).(*gorm.DB)
+	if db == nil {
+		db = di.Get(constants.MYSQL_DB).(*gorm.DB)
+	}
+
 	return &userRepository{
-		db:       di.Get(constants.PG_DB).(*gorm.DB),
+		db:       db,
 		response: di.Get(constants.RESPONSE).(*response.Response),
 	}
 }
