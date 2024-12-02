@@ -4,8 +4,12 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"os"
 	"runtime"
 	"strings"
+	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 type ErrorResponse struct {
@@ -20,6 +24,7 @@ type ErrorResponse struct {
 	fn         string
 	line       int
 	path       string
+	logger     *logrus.Logger
 }
 
 type errorResponse struct {
@@ -37,6 +42,14 @@ func (e *ErrorResponse) Error() string {
 
 func (r *Response) NewError() *ErrorResponse {
 	e := &ErrorResponse{}
+
+	e.logger = logrus.New()
+	e.logger.Formatter = &logrus.JSONFormatter{
+		TimestampFormat:   time.RFC3339Nano,
+		DisableHTMLEscape: true,
+	}
+	e.logger.Level = logrus.ErrorLevel
+	e.logger.SetOutput(os.Stdout)
 
 	e.source = ""
 
@@ -103,4 +116,17 @@ func (e *ErrorResponse) GetDetail() string {
 
 func (e *ErrorResponse) GetSource() string {
 	return e.source
+}
+
+func (e *ErrorResponse) Log() {
+	requestId := ""
+
+	if e.ctx != nil && e.ctx.Value("request-id") != nil {
+		requestId, _ = e.ctx.Value("request-id").(string)
+	}
+
+	e.logger.WithFields(logrus.Fields{
+		"request-id": requestId,
+		"stack":      e.stack,
+	}).Error(e.detail)
 }

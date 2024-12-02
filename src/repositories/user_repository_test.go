@@ -3,6 +3,7 @@ package repositories_test
 import (
 	"context"
 	"errors"
+	"go-boilerplate-v2/src/constants"
 	src_mock "go-boilerplate-v2/src/mocks"
 	"go-boilerplate-v2/src/models"
 	mock_connections "go-boilerplate-v2/src/pkg/connections/mocks"
@@ -42,10 +43,10 @@ func (u *userRepositoryTest) SetupTest() {
 		Mysql: u.mysql,
 	})
 
-	u.repoPostgres = repositories.NewUserRepository(diPostgres)
-	u.repoMysql = repositories.NewUserRepository(diMysql)
+	u.repoPostgres = repositories.NewUserRepository(diPostgres.Build())
+	u.repoMysql = repositories.NewUserRepository(diMysql.Build())
 
-	u.ctx = context.WithValue(context.TODO(), "request-id", "213")
+	u.ctx = context.WithValue(context.TODO(), constants.RequestID, "213")
 }
 
 func (u *userRepositoryTest) TestInsertPostgres() {

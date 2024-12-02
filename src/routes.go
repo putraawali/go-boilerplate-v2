@@ -12,9 +12,4 @@ func NewRoutes(app *echo.Echo, di di.Container) {
 
 	app.POST("/register", ctrl.User.Register)
 	app.POST("/login", ctrl.User.Login)
-
-	// app.GET("/test", func(c echo.Context) error {
-	// 	userData := jwt.GetUserData(c)
-	// 	return c.JSON(200, userData)
-	// })
 }

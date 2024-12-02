@@ -1,6 +1,7 @@
 package models
 
 import (
+	"go-boilerplate-v2/src/dtos"
 	"go-boilerplate-v2/src/pkg/helpers"
 	"time"
 
@@ -22,4 +23,12 @@ func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
 	u.Password = helpers.HashPassword(u.Password)
 
 	return
+}
+
+func (u *User) FillRegister(data dtos.RegisterParam) {
+	u.Email = data.Email
+	u.FirstName = data.FirstName
+	u.LastName = data.LastName
+	u.Phone = data.Phone
+	u.Password = data.Password
 }

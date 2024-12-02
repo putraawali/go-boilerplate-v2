@@ -35,6 +35,7 @@ func (r *Response) Send(statusCode int, data any, err any) (int, *response) {
 			}
 
 			statusCode = errData.statusCode
+			errData.Log()
 		} else {
 			// Generate stack trace
 			source := ""

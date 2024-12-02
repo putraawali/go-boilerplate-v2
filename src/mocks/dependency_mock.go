@@ -15,7 +15,7 @@ type Dependencies struct {
 	Mysql      *gorm.DB
 }
 
-func NewMockDependencies(d Dependencies) di.Container {
+func NewMockDependencies(d Dependencies) *di.Builder {
 	builder, _ := di.NewBuilder()
 
 	builder.Add(
@@ -45,5 +45,5 @@ func NewMockDependencies(d Dependencies) di.Container {
 		},
 	)
 
-	return builder.Build()
+	return builder
 }

@@ -1,6 +1,9 @@
 package middlewares
 
 import (
+	"context"
+	"go-boilerplate-v2/src/constants"
+
 	"github.com/google/uuid"
 	echo "github.com/labstack/echo/v4"
 )
@@ -15,7 +18,10 @@ func ValidateRequestID() echo.MiddlewareFunc {
 				c.Request().Header.Set("request-id", requestID)
 			}
 
-			c.Set("request-id", requestID)
+			ctx := context.WithValue(c.Request().Context(), constants.RequestID, requestID)
+
+			r := c.Request().WithContext(ctx)
+			c.SetRequest(r)
 
 			return next(c)
 		}
