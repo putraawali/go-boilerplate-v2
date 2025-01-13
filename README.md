@@ -32,3 +32,19 @@ Simple Boilerplate with Non-Functional Requirement Like:
  ┗ 📂usecases ----------- Usecase/Service layer, for business logic
    ┗ 📂mocks ------------ Mocks of usecases/services layer
 ```
+
+## How To Use
+
+If you want the program running locally:
+
+1. Create file .env
+2. Copy all inside .env.example and put it to your .env file
+3. Update it with your own value
+4. run `go run main.go`
+
+If you want the program running on Docker:
+
+1. Create file .env
+2. Copy all inside .env.example and put it to your .env file
+3. Update it with your own value
+4. run `docker compose up --build`

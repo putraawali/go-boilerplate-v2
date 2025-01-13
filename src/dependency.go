@@ -14,7 +14,7 @@ func dependencyInjection() di.Container {
 	builder, _ := di.NewBuilder()
 
 	pg, err := connections.NewPostgreConnection()
-	mysql, err := connections.NewMySQLConnection()
+	// mysql, err := connections.NewMySQLConnection()
 
 	builder.Add(
 		di.Def{
@@ -23,12 +23,12 @@ func dependencyInjection() di.Container {
 				return response.NewResponse(), nil
 			},
 		},
-		di.Def{
-			Name: constants.MYSQL_DB,
-			Build: func(ctn di.Container) (interface{}, error) {
-				return mysql, err
-			},
-		},
+		// di.Def{
+		// 	Name: constants.MYSQL_DB,
+		// 	Build: func(ctn di.Container) (interface{}, error) {
+		// 		return mysql, err
+		// 	},
+		// },
 		di.Def{
 			Name: constants.PG_DB,
 			Build: func(ctn di.Container) (interface{}, error) {
