@@ -5,7 +5,7 @@ import (
 	"go-boilerplate-v2/src/pkg/response"
 	"go-boilerplate-v2/src/repositories"
 
-	"github.com/sarulabs/di"
+	godi "github.com/putraawali/go-di"
 	"gorm.io/gorm"
 )
 
@@ -15,31 +15,31 @@ type Dependencies struct {
 	Mysql      *gorm.DB
 }
 
-func NewMockDependencies(d Dependencies) *di.Builder {
-	builder, _ := di.NewBuilder()
+func NewMockDependencies(d Dependencies) *godi.Builder {
+	builder := godi.New()
 
 	builder.Add(
-		di.Def{
+		godi.Dependency{
 			Name: constants.RESPONSE,
-			Build: func(ctn di.Container) (interface{}, error) {
+			Create: func() (interface{}, error) {
 				return response.NewResponse(), nil
 			},
 		},
-		di.Def{
+		godi.Dependency{
 			Name: constants.REPOSITORY,
-			Build: func(ctn di.Container) (interface{}, error) {
+			Create: func() (interface{}, error) {
 				return d.Repository, nil
 			},
 		},
-		di.Def{
+		godi.Dependency{
 			Name: constants.MYSQL_DB,
-			Build: func(ctn di.Container) (interface{}, error) {
+			Create: func() (interface{}, error) {
 				return d.Mysql, nil
 			},
 		},
-		di.Def{
+		godi.Dependency{
 			Name: constants.PG_DB,
-			Build: func(ctn di.Container) (interface{}, error) {
+			Create: func() (interface{}, error) {
 				return d.Postgres, nil
 			},
 		},

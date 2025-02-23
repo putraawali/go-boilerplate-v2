@@ -1,12 +1,12 @@
 package usecases
 
-import "github.com/sarulabs/di"
+import godi "github.com/putraawali/go-di"
 
 type Usecases struct {
 	User UserUsecase
 }
 
-func NewUsecase(di di.Container) *Usecases {
+func NewUsecase(di godi.Container) *Usecases {
 	return &Usecases{
 		User: NewUserUsecase(di),
 	}

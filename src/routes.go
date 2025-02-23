@@ -4,10 +4,10 @@ import (
 	"go-boilerplate-v2/src/controllers"
 
 	"github.com/labstack/echo/v4"
-	"github.com/sarulabs/di"
+	godi "github.com/putraawali/go-di"
 )
 
-func NewRoutes(app *echo.Echo, di di.Container) {
+func NewRoutes(app *echo.Echo, di godi.Container) {
 	ctrl := controllers.NewController(di)
 
 	app.POST("/register", ctrl.User.Register)

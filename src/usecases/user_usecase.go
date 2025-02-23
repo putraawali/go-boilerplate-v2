@@ -13,7 +13,7 @@ import (
 	"go-boilerplate-v2/src/repositories"
 	"net/http"
 
-	"github.com/sarulabs/di"
+	godi "github.com/putraawali/go-di"
 )
 
 type UserUsecase interface {
@@ -26,7 +26,7 @@ type userUsecase struct {
 	response *response.Response
 }
 
-func NewUserUsecase(di di.Container) UserUsecase {
+func NewUserUsecase(di godi.Container) UserUsecase {
 	return &userUsecase{
 		repo:     di.Get(constants.REPOSITORY).(*repositories.Repositories),
 		response: di.Get(constants.RESPONSE).(*response.Response),

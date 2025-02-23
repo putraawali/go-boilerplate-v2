@@ -7,43 +7,31 @@ import (
 	"go-boilerplate-v2/src/repositories"
 	"go-boilerplate-v2/src/usecases"
 
-	"github.com/sarulabs/di"
+	godi "github.com/putraawali/go-di"
 )
 
-func dependencyInjection() di.Container {
-	builder, _ := di.NewBuilder()
+func dependencyInjection() godi.Container {
+	builder := godi.New()
 
 	pg, err := connections.NewPostgreConnection()
+	if err != nil {
+		panic(err)
+	}
 	// mysql, err := connections.NewMySQLConnection()
 
+	builder.Set(constants.RESPONSE, response.NewResponse())
+	builder.Set(constants.PG_DB, pg)
+
 	builder.Add(
-		di.Def{
-			Name: constants.RESPONSE,
-			Build: func(ctn di.Container) (interface{}, error) {
-				return response.NewResponse(), nil
-			},
-		},
-		// di.Def{
-		// 	Name: constants.MYSQL_DB,
-		// 	Build: func(ctn di.Container) (interface{}, error) {
-		// 		return mysql, err
-		// 	},
-		// },
-		di.Def{
-			Name: constants.PG_DB,
-			Build: func(ctn di.Container) (interface{}, error) {
-				return pg, err
-			},
-		},
-		di.Def{
+		godi.Dependency{
 			Name: constants.REPOSITORY,
-			Build: func(ctn di.Container) (interface{}, error) {
+			Create: func() (interface{}, error) {
 				return repositories.NewRepository(builder.Build()), nil
 			},
 		},
-		di.Def{
+		godi.Dependency{
 			Name: constants.USECASE,
-			Build: func(ctn di.Container) (interface{}, error) {
+			Create: func() (interface{}, error) {
 				return usecases.NewUsecase(builder.Build()), nil
 			},
 		},

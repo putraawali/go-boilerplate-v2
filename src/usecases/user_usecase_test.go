@@ -12,7 +12,7 @@ import (
 	"go-boilerplate-v2/src/usecases"
 	"testing"
 
-	"github.com/sarulabs/di"
+	godi "github.com/putraawali/go-di"
 	"github.com/stretchr/testify/suite"
 	"go.uber.org/mock/gomock"
 )
@@ -25,7 +25,7 @@ type (
 
 	userUsecaseData struct {
 		mockRepo *repositories.Repositories
-		builder  *di.Builder
+		builder  *godi.Builder
 	}
 )
 

@@ -9,7 +9,7 @@ import (
 	"go-boilerplate-v2/src/pkg/response"
 	"net/http"
 
-	"github.com/sarulabs/di"
+	godi "github.com/putraawali/go-di"
 	"gorm.io/gorm"
 )
 
@@ -23,7 +23,7 @@ type userRepository struct {
 	response *response.Response
 }
 
-func NewUserRepository(di di.Container) UserRepository {
+func NewUserRepository(di godi.Container) UserRepository {
 	db := di.Get(constants.PG_DB).(*gorm.DB)
 	// if db == nil {
 	// 	db = di.Get(constants.MYSQL_DB).(*gorm.DB)

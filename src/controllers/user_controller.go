@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/sarulabs/di"
+	godi "github.com/putraawali/go-di"
 )
 
 type UserController interface {
@@ -21,7 +21,7 @@ type userController struct {
 	response *response.Response
 }
 
-func NewUserController(di di.Container) UserController {
+func NewUserController(di godi.Container) UserController {
 	return &userController{
 		uc:       di.Get(constants.USECASE).(*usecases.Usecases),
 		response: di.Get(constants.RESPONSE).(*response.Response),
